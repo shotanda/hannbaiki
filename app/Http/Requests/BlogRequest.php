@@ -24,9 +24,12 @@ class BlogRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_name'
-            'company_name'
-            ''
+            'product_name' => 'required | max:10' ,
+            'company_name' => 'required | max:10',
+            'price' => 'required | max:3',
+            'stock' => 'required | max:3',
         ];
+
+        
     }
 }

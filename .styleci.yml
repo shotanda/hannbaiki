@@ -11,3 +11,9 @@ js:
     not-name:
       - webpack.mix.js
 css: true
+
+mix.js([
+    'resources/js/app.js',
+    'resources/js/jquery.js'
+    ], 'public/js')
+    .sass('resources/sass/app.scss', 'public/css');

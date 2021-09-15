@@ -22,7 +22,7 @@ Route::get('/resisterpro',function(){
 });
 Auth::routes();
 
-
+//ホーム画面
 Route::get('home', 'HomeController@index')->name('home');
 
 Auth::routes();
@@ -36,8 +36,13 @@ Route::post('resisterpro/store','HomeController@exestore')->name('store');
 
 Auth::routes();
 
+
+//検索機能
+Route::get('/search','HomeController@search')->name('search');
+Route::get('/getsearch','HomeController@getSearch');
+
 //商品詳細表示
-Route::get('product/{id}','HomeController@showDetail');
+Route::get('product/{id}','HomeController@showDetail')->name('detail');
 
 Auth::routes();
 
@@ -48,7 +53,9 @@ Route::post('/product/update','HomeController@exeUpdate')->name('update');
 
 Auth::routes();
 
+//削除
+ Route::post('product/delete/{id}/', 'HomeController@delete'); //削除
 
-Auth::routes();
+
 
 
