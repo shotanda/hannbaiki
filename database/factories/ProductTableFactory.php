@@ -10,8 +10,6 @@ $factory->define(Product::class, function (Faker $faker) {
         'product_name'=>$faker ->word,
         'price'=>$faker ->randomDigitNotNull,
         'stock'=>$faker->randomDigit,
-        'comment'=>$faker->text,
         'company_name'=>$faker->company,
-        'street_address'=>$faker->address
     ];
 });

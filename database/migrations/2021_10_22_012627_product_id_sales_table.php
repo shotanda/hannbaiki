@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnProductIdToSalesTable extends Migration
+class ProductIdSalesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,7 @@ class AddColumnProductIdToSalesTable extends Migration
      */
     public function up()
     {
-        Schema::table('sales', function (Blueprint $table) {
-            //
-            $table -> unsignedBigInteger('product_id');
-        });
+        //
     }
 
     /**
@@ -26,9 +23,6 @@ class AddColumnProductIdToSalesTable extends Migration
      */
     public function down()
     {
-        Schema::table('sales', function (Blueprint $table) {
-            //
-            $table -> dropColumn('product_id');
-        });
+        //
     }
 }

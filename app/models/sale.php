@@ -13,10 +13,11 @@ class sale extends Model
      //可変項目
      protected $fillable=
  [   
-    
+    'id',
+    'product_id'
  ];
     
-    public function products(){
-        return $this->hasMany('App\Models\product');
+    public function product(){
+        return $this->belongsTo('App\product');
     }
 }

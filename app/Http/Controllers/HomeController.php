@@ -28,15 +28,12 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $product =Product::all();
         $sort = $request->sort;
         if (is_null($sort)) {
             $sort = 'id';
            }
         $products = DB::table('products')->orderBy($sort, 'asc')->orderBy($sort,'desc')->Paginate(6);
-        $param = ['products' => $products, 'sort' => $sort,'maxprice' => '',
-         'minprice' => '','maxstock' =>'','minstock' =>''];
-        
+        $param = ['products' => $products, 'sort' => $sort];
         return view('home',$param);
     }
     
@@ -96,57 +93,69 @@ class HomeController extends Controller
      }
 
     //検索機能
-    public function Search(Request $request)
+
+    public function getSearch(request $request)
     {
-        // キーワードを取得
-        $keyword = $request->input('keyword');
-        
-        //クエリ作成
-        $query = product::query();
+        $query = Product::query();
 
-        //キーワードが入力されている場合
-        if(!empty($keyword)){
-        $query->where('product_name', 'like', '%'.$keyword.'%')
-              ->orWhere('company_name','like','%'.$keyword.'%');
+
+        $minPrice = $request->minPrice;
+        $maxPrice = $request->maxPrice;
+        $minStock = $request->minStock;
+        $maxStock = $request->maxStock;
+        $prices = $request->prices;
+        $stockers = $request->stockers;
+
+        $products = Product::where('product_name','like',"%$request->product_name%")->get();
+        if((!empty($minPrice) or !empty($maxPrice))) {
+            if(empty($minPrice)) {
+              $minPrice = 0;
+            }
+            if(empty($maxPrice)) {
+              $maxPrice = 9999999;
+            }
+            $prices = $query->from('products')->whereBetween('price',[$minPrice, $maxPrice])->get();
         }
-        $products = $query->get();
-         
-        return view('home')->with(compact("products","keyword"));
+
+        if((!empty($minStock) or !empty($maxStock))) {
+            if(empty($minStock)) {
+              $minStock = 0;
+            }
+            if(empty($maxStock)) {
+              $maxStock = 9999999;
+            }
+            $stockers = $query->from('products')->whereBetween('stock',[$minStock, $maxStock])->get();
+        }
+
+
+        return response()->json([
+            'products'=>$products,
+            'minPrice'=>$minPrice,
+            'maxPrice'=>$maxPrice,
+            'prices'=>$prices,
+            'minStock'=>$minStock,
+            'maxStock'=>$maxStock,
+            'stockers'=>$stockers,
+        ]);
+        
+    }
+
+    public function test(Request $request){
+        $products = product::all();
+        return view('sample',['products'=> $products]);
+    }
+    
+        //削除機能
+        public function delete($id){
+            //削除対象レコードを検索
+            $product = product::all(); 
+            
+            if ($product != null) {
+                $product->each->delete();
+            }
+    
+            return response()->json(['product'=>$product]);
+        }
 
 
     }
-
-    public function getsearch(){
-        $minprice = $request->minprice;
-        $maxprice = $request->maxprice;
-        $minstock = $request->minstock;
-        $maxprice = $request->maxstock;
-
-        $targets = product::minprice($minprice)->
-                       maxprice($maxprice)->get();
-        $stockers = product::minstock($minstock)->
-                       maxstock($maxstock)->get();
-        $param = ['input' => $request ->input,'param' =>$parem];
-        return view('home',$param);
-    }
-    
-                    
-    
-    //削除機能
-    public function delete($id){
-        //削除対象レコードを検索
-        $products = Product::find($id);
-        //削除
-        $products->delete();
-        return redirect()->to('home');
-    }
- 
-    
-    
-
-    //APIを作る
-    
-}
-
-  
-

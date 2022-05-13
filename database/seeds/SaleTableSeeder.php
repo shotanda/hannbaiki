@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\models\Company;
 
-class CompaniesTableSeeder extends Seeder
+class SaleTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +11,10 @@ class CompaniesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Company::class,4)->create();
+        $param = [
+            'money' => 100,
+        ];
+        
+        DB::table('sale')->insert($param,);
     }
 }
-

@@ -86,32 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ "./resources/js/jquery.js":
-/*!********************************!*\
-  !*** ./resources/js/jquery.js ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-$(function () {
-  $('#test_jquery').on('click', function () {
-    alert("Hello, jQuery!");
-  });
-});
-
-/***/ }),
-
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -124,14 +98,14 @@ $(function () {
 /***/ }),
 
 /***/ 0:
-/*!**************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/js/jquery.js ./resources/sass/app.scss ***!
-  \**************************************************************************************/
+/*!*******************************************************************!*\
+  !*** multi ./src/app.js ./src/app.scss ./resources/sass/app.scss ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/system/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /Applications/MAMP/htdocs/system/resources/js/jquery.js */"./resources/js/jquery.js");
+!(function webpackMissingModule() { var e = new Error("Cannot find module '/Applications/MAMP/htdocs/system/src/app.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+!(function webpackMissingModule() { var e = new Error("Cannot find module '/Applications/MAMP/htdocs/system/src/app.scss'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/system/resources/sass/app.scss */"./resources/sass/app.scss");
 
 

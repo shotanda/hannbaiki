@@ -15,6 +15,8 @@ class SalesTablePhp extends Migration
     {
         //
         Schema::create('sales', function (Blueprint $table) {
+            $table->bigincrements('id');
+            $table->integer('product_id');
             $table->timestamps();
     });
 }
@@ -26,6 +28,6 @@ class SalesTablePhp extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('sales');
     }
 }

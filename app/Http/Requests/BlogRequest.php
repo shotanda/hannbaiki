@@ -32,4 +32,16 @@ class BlogRequest extends FormRequest
 
         
     }
+    public function money()
+    {
+        $remain = function($attribute, $value, $fail) {
+            $input_data = $this->all();
+            if ($input_data['money'] - $input_data['price'] <= 0)
+            {
+                $fail('【金額】お金が足りないでござる。');
+            }
+        };
+
+    }
+
 }

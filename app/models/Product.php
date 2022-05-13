@@ -14,51 +14,32 @@ class Product extends Model
      //可変項目
      protected $fillable=
  [   
+    'id',
     'company_name',
-    'street_address',
     'product_name',
     'price',
     'stock',
-    'comment'
  ];
 
- public function sales(){
-return $this->belongsTo('App\Models\sale');
- }
 
-public function order($select)
+public function scopeProductname($query, $str) {
+    return $query->where('product_name', $str);
+}
+public function scopeCompanyname($query, $com) {
+    return $query->where('company_name', $com);
+}
+public function scopeMinprice($query, $q)
 {
-    if($select == 'asc'){
-        return $this->orderBy('created_at', 'asc')->get();
-    } elseif($select == 'desc') {
-        return $this->orderBy('created_at', 'desc')->get();
-    } else {
-        return $this->all();
-    }
+    return $query->where('price', '>=', $q);
 }
-
-public function getData()
+public function scopeMaxprice($query, $q)
 {
-    return $this->id . ': ' . $this->company_name . ' [' . $this->price . '] ' . '(' . $this->stock . ')';
+    return $query->where('price','<=', $q);
 }
 
-public function scopeMinprice($query, $minprice)
-{   
-        return $query->where('price','', '>=', $minprice);
+public function sales(){
+    return $this->hasMany('App\sale','product_id');
 }
 
-public function scopeMaxprice($query, $maxprice)
-{   
-        return $query->where('price','', '<=', $maxprice);
-}
 
-public function scopeMinstock($query, $minstock)
-{   
-        return $query->where('stock','', '>=', $minstock);
-}
-
-public function scopeMaxstock($query, $maxstock)
-{   
-        return $query->where('stock','', '<=', $maxstock);
-}
 }
